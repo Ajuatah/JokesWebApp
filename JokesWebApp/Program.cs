@@ -1,8 +1,11 @@
-using JokesWebApp.Data;
+﻿using JokesWebApp.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<JokesWebAppContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("JokesWebAppContext") ?? throw new InvalidOperationException("Connection string 'JokesWebAppContext' not found.")));
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
